@@ -1,0 +1,35 @@
+```javascript
+import { useState } from "react";
+import authService from "../services/authService";
+
+function useAuth() {
+  const [user, setUser] = useState(
+    authService.getCurrentUser()
+  );
+
+  const login = async (username, password) => {
+    const data = await authService.login(
+      username,
+      password
+    );
+
+    setUser(data.user);
+
+    return data;
+  };
+
+  const logout = () => {
+    authService.logout();
+    setUser(null);
+  };
+
+  return {
+    user,
+    login,
+    logout,
+    isAuthenticated: authService.isAuthenticated(),
+  };
+}
+
+export default useAuth;
+```
