@@ -1,0 +1,34 @@
+```javascript
+import api from "../utils/api";
+
+const getPayroll = () => {
+  return api("/payroll");
+};
+
+const getEmployeePayroll = (employeeId) => {
+  return api(`/payroll/${employeeId}`);
+};
+
+const processPayroll = (payroll) => {
+  return api("/payroll/process", {
+    method: "POST",
+    body: JSON.stringify(payroll),
+  });
+};
+
+const getPayrollHistory = (employeeId) => {
+  return api(`/payroll/${employeeId}/history`);
+};
+
+const getCurrentPayroll = (employeeId) => {
+  return api(`/payroll/${employeeId}/current`);
+};
+
+export default {
+  getPayroll,
+  getEmployeePayroll,
+  processPayroll,
+  getPayrollHistory,
+  getCurrentPayroll,
+};
+```
