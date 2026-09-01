@@ -1,0 +1,65 @@
+```jsx
+import { useState } from "react";
+
+function Reports() {
+  const [reportType, setReportType] = useState("payroll");
+
+  const handleGenerate = () => {
+    alert(
+      `${reportType.toUpperCase()} report generated successfully`
+    );
+  };
+
+  return (
+    <div>
+      <h1>Reports</h1>
+
+      <div className="report-container">
+        <h2>Generate Report</h2>
+
+        <select
+          value={reportType}
+          onChange={(e) =>
+            setReportType(e.target.value)
+          }
+        >
+          <option value="payroll">
+            Payroll Report
+          </option>
+
+          <option value="employees">
+            Employee Report
+          </option>
+
+          <option value="attendance">
+            Attendance Report
+          </option>
+        </select>
+
+        <button onClick={handleGenerate}>
+          Generate Report
+        </button>
+      </div>
+
+      <div className="cards">
+        <div className="card">
+          <h3>Payroll Reports</h3>
+          <p>Monthly salary information</p>
+        </div>
+
+        <div className="card">
+          <h3>Employee Reports</h3>
+          <p>Employee information</p>
+        </div>
+
+        <div className="card">
+          <h3>Attendance Reports</h3>
+          <p>Employee attendance</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Reports;
+```
