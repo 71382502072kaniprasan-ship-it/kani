@@ -1,0 +1,74 @@
+```jsx
+import { useEffect, useState } from "react";
+import payrollService from "../services/payrollService";
+
+function Payroll() {
+  const [payroll, setPayroll] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadPayroll = async () => {
+    try {
+      const data = await payrollService.getPayroll();
+      setPayroll(data);
+    } catch (error) {
+      console.error("Payroll error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadPayroll();
+  }, []);
+
+  if (loading) {
+    return <p>Loading payroll...</p>;
+  }
+
+  return (
+    <div>
+      <h1>Payroll Management</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Employee ID</th>
+            <th>Month</th>
+            <th>Basic Salary</th>
+            <th>Allowances</th>
+            <th>Deductions</th>
+            <th>Gross Salary</th>
+            <th>Net Salary</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {payroll.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.employeeId}</td>
+              <td>{item.month}</td>
+              <td>₹{item.basicSalary}</td>
+              <td>₹{item.allowances}</td>
+              <td>₹{item.deductions}</td>
+              <td>₹{item.grossSalary}</td>
+              <td>₹{item.netSalary}</td>
+            </tr>
+          ))}
+
+          {payroll.length === 0 && (
+            <tr>
+              <td colSpan="8">
+                No payroll records found.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default Payroll;
+```
