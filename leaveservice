@@ -1,0 +1,38 @@
+```javascript
+import api from "../utils/api";
+
+const applyLeave = (leave) => {
+  return api("/leaves", {
+    method: "POST",
+    body: JSON.stringify(leave),
+  });
+};
+
+const getEmployeeLeaves = (employeeId) => {
+  return api(`/leaves/${employeeId}`);
+};
+
+const getLeaveBalance = (employeeId) => {
+  return api(`/leaves/${employeeId}/balance`);
+};
+
+const approveLeave = (id) => {
+  return api(`/leaves/${id}/approve`, {
+    method: "PUT",
+  });
+};
+
+const rejectLeave = (id) => {
+  return api(`/leaves/${id}/reject`, {
+    method: "PUT",
+  });
+};
+
+export default {
+  applyLeave,
+  getEmployeeLeaves,
+  getLeaveBalance,
+  approveLeave,
+  rejectLeave,
+};
+```
