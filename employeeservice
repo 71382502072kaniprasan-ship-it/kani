@@ -1,0 +1,39 @@
+```javascript
+import api from "../utils/api";
+
+const getEmployees = () => {
+  return api("/employees");
+};
+
+const getEmployeeById = (id) => {
+  return api(`/employees/${id}`);
+};
+
+const createEmployee = (employee) => {
+  return api("/employees", {
+    method: "POST",
+    body: JSON.stringify(employee),
+  });
+};
+
+const updateEmployee = (id, employee) => {
+  return api(`/employees/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(employee),
+  });
+};
+
+const deleteEmployee = (id) => {
+  return api(`/employees/${id}`, {
+    method: "DELETE",
+  });
+};
+
+export default {
+  getEmployees,
+  getEmployeeById,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee,
+};
+```
