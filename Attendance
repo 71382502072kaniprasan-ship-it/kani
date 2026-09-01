@@ -1,0 +1,66 @@
+```jsx
+import { useState } from "react";
+import attendanceService from "../services/attendanceService";
+
+function Attendance() {
+  const [employeeId, setEmployeeId] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleCheckIn = async () => {
+    if (!employeeId) {
+      setMessage("Please enter employee ID");
+      return;
+    }
+
+    try {
+      await attendanceService.checkIn(employeeId);
+      setMessage("Check-in successful");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
+  const handleCheckOut = async () => {
+    if (!employeeId) {
+      setMessage("Please enter employee ID");
+      return;
+    }
+
+    try {
+      await attendanceService.checkOut(employeeId);
+      setMessage("Check-out successful");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Attendance Management</h1>
+
+      <div className="form-container">
+        <input
+          type="number"
+          placeholder="Employee ID"
+          value={employeeId}
+          onChange={(e) => setEmployeeId(e.target.value)}
+        />
+
+        <div className="actions">
+          <button onClick={handleCheckIn}>
+            Check In
+          </button>
+
+          <button onClick={handleCheckOut}>
+            Check Out
+          </button>
+        </div>
+
+        {message && <p>{message}</p>}
+      </div>
+    </div>
+  );
+}
+
+export default Attendance;
+```
