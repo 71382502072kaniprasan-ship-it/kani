@@ -1,0 +1,56 @@
+```jsx
+import { useEffect, useState } from "react";
+import employeeService from "../services/employeeService";
+import payrollService from "../services/payrollService";
+
+function Dashboard() {
+  const [employeeCount, setEmployeeCount] = useState(0);
+  const [payrollCount, setPayrollCount] = useState(0);
+
+  useEffect(() => {
+    const loadDashboard = async () => {
+      try {
+        const employees = await employeeService.getEmployees();
+        const payroll = await payrollService.getPayroll();
+
+        setEmployeeCount(employees.length);
+        setPayrollCount(payroll.length);
+      } catch (error) {
+        console.error("Dashboard error:", error);
+      }
+    };
+
+    loadDashboard();
+  }, []);
+
+  return (
+    <div>
+      <h1>Dashboard</h1>
+
+      <div className="cards">
+        <div className="card">
+          <h3>Total Employees</h3>
+          <p>{employeeCount}</p>
+        </div>
+
+        <div className="card">
+          <h3>Payroll Records</h3>
+          <p>{payrollCount}</p>
+        </div>
+
+        <div className="card">
+          <h3>Attendance</h3>
+          <p>Active</p>
+        </div>
+
+        <div className="card">
+          <h3>System</h3>
+          <p>Online</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Dashboard;
+```
