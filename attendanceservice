@@ -1,0 +1,36 @@
+```javascript
+import api from "../utils/api";
+
+const checkIn = (employeeId) => {
+  return api("/attendance/check-in", {
+    method: "POST",
+    body: JSON.stringify({
+      employeeId: Number(employeeId),
+    }),
+  });
+};
+
+const checkOut = (employeeId) => {
+  return api("/attendance/check-out", {
+    method: "POST",
+    body: JSON.stringify({
+      employeeId: Number(employeeId),
+    }),
+  });
+};
+
+const getAttendance = (employeeId) => {
+  return api(`/attendance/${employeeId}`);
+};
+
+const getMonthlyAttendance = (employeeId) => {
+  return api(`/attendance/${employeeId}/monthly`);
+};
+
+export default {
+  checkIn,
+  checkOut,
+  getAttendance,
+  getMonthlyAttendance,
+};
+```
